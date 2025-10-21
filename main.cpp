@@ -65,8 +65,6 @@ private:
 
 public:
 	Student() : Base() {
-		/*fullName = new char[1];
-		fullName[0] = '\0';*/
 		group = new char[1];
 		group[0] = '\0';
 		specialty = new char[1];
@@ -77,8 +75,6 @@ public:
 	}
 
 	Student(const char* name, const char* group, const char* specialty, int course, double gpa) : Base(name) {
-		/*this->fullName = new char[strlen(name) + 1];
-		strcpy_s(this->fullName, strlen(name) + 1, name);*/
 		this->group = new char[strlen(group) + 1];
 		strcpy_s(this->group, strlen(group) + 1, group);
 		this->specialty = new char[strlen(specialty) + 1];
@@ -306,48 +302,9 @@ int main() {
 	keeper.Add(new Student("test1", "well2", "let2", 1, 4.2));
 	keeper.ShowAll();
 	keeper.SaveToFile("data.txt");
-	/*string line;
-	ifstream in("data.txt");
-	while (getline(in, line)) {
-		cout << line << endl;
-	}
-	in.close();*/
 	Keeper keeper2;
 	keeper2.LoadFromFile("data.txt");
 	keeper2.ShowAll();
-	//keeper2.SaveToFile("data.txt");
-	//ofstream out;          // поток для записи
-	/*out.open("data.txt");
-	out << "?????" << endl;
-	out.close();
-	/*cout << "test" << endl;
-	Student s1("test", "test", "test", 3, 4.6);
-	s1.printInfo();
 
-	cout << "test copy" << endl;
-	Student s2 = s1;
-	s2.printInfo();
-
-	cout << "test oper copy " << endl;
-	Student s3;
-	s3 = s1;
-	s3.printInfo();
-
-	cout << "end test" << endl;*/
 	return 0;
 }
-/*int main() {
-	Keeper keeper;
-
-	keeper.Add(new Student("Иванов Иван", "ИВТ-21", "Информатика", 2, 4.5));
-	keeper.Add(new Student("Петров Петр", "ПМИ-22", "Математика", 1, 4.2));
-
-	keeper.ShowAll();
-	keeper.SaveToFile("data.txt");
-
-	std::cout << "\n=== Загружаем данные из файла ===\n";
-	Keeper keeper2;
-	keeper2.LoadFromFile("data.txt");
-	keeper2.ShowAll();
-
-	return 0;*/
