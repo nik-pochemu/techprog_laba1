@@ -154,9 +154,268 @@ public:
 	const char* GetType() const override { return "STUDENT"; };
 };
 
-//class Teacher {};
+class Teacher : public Base {
+private:
 
-//class Administration {};
+
+	char** group;
+	char** specialty;
+	int size_group;
+	int size_spec;
+
+public:
+	Teacher() : Base() {
+		group = nullptr;
+		specialty = nullptr;
+		size_group = 0;
+		size_spec = 0;
+		cout << "Teacher const without param" << endl;
+
+	}
+
+	/*Teacher(group(nullptr), size(0)) : Base() {}
+	void input() {
+		cout << "—колько групп вы хотите добавить?" << endl;
+		cin >> size;
+		cin.ignore();
+		group = new char* [size];
+		for (int i = 0; i < size; i++) {
+			char buffer[256];
+			cout << "¬ведите название/номер группы:";
+			cin.getline(buffer, 256);
+			group[i] = new char[strlen(buffer) + 1];
+			strcpy_s(group[i], strlen(buffer) + 1, buffer);
+		}
+	}*/
+
+	Teacher(const char* name, const char* group[], const char* specialty[], const int size_group, const int size_spec) : Base(name) {
+		
+		this->group  = new char* [sizeof(size_group)];
+		for (int i = 0; i < size_group; i++) {
+			this->group[i] = new char[strlen(group[i]) + 1];
+			strcpy_s(this->group[i], strlen(group[i]) + 1, group[i]);
+		}
+		this->specialty = new char* [sizeof(size_spec)];
+
+		for (int i = 0; i < size_spec; i++) {
+			this->specialty[i] = new char[strlen(specialty[i]) + 1];
+			strcpy_s(this->specialty[i], strlen(specialty[i]) + 1, specialty[i]);
+		}
+		this->size_group = size_group;
+		this->size_spec = size_spec;
+
+		cout << "Teacher const with param" << endl;
+
+	}
+
+	Teacher(const Teacher& other) : Base(other) {
+
+		group = new char* [size_group];
+		for (int i = 0; i < size_group; i++) {
+			group[i] = new char[strlen(other.group[i]) + 1];
+			strcpy_s(group[i], strlen(other.group[i]) + 1, other.group[i]);
+		}
+		specialty = new char* [size_spec];
+		for (int i = 0; i < size_spec; i++) {
+			specialty[i] = new char[strlen(other.specialty[i]) + 1];
+			strcpy_s(specialty[i], strlen(other.specialty[i]) + 1, other.specialty[i]);
+		}
+		size_group = other.size_group;
+		size_spec = other.size_spec;
+		cout << "Teacher const copy" << endl;
+	}
+
+	Teacher& operator= (const Teacher& other) {
+		cout << "Teacher op copy" << endl;
+		if (this != &other) {
+			Base::operator=(other);
+
+			for (int i = 0; i < size_group; i++) {
+				delete group[i];
+			}
+			delete[] group;
+			for (int i = 0; i < size_spec; i++) {
+				delete specialty[i];
+			}
+			delete[] specialty;
+			group = new char* [size_group];
+			for (int i = 0; i < size_group; i++) {
+				group[i] = new char[strlen(other.group[i]) + 1];
+				strcpy_s(group[i], strlen(other.group[i]) + 1, other.group[i]);
+			}
+			specialty = new char* [size_spec];
+			for (int i = 0; i < size_spec; i++) {
+				specialty[i] = new char[strlen(other.specialty[i]) + 1];
+				strcpy_s(specialty[i], strlen(other.specialty[i]) + 1, other.specialty[i]);
+			}
+			size_group = other.size_group;
+			size_spec = other.size_spec;
+		}
+		return *this;
+	}
+
+	~Teacher() override {
+		cout << "destruct Teacher" << endl;
+		for (int i = 0; i < size_group; i++) {
+			delete group[i];
+		}
+		delete[] group;
+		for (int i = 0; i < size_spec; i++) {
+			delete specialty[i];
+		}
+		delete[] specialty;
+
+	}
+
+	void printInfo() const override {
+		cout << "example" << endl;
+		cout << "example" << GetName() << endl;
+		cout << size_group << endl;
+		for (int i = 0; i < size_group; i++) {
+			cout << group[i] << endl;
+		}
+		cout << size_spec << endl;
+		for (int i = 0; i < size_spec; i++) {
+			cout << specialty[i] << endl;
+		}
+	}
+	void SaveToFile(ofstream& out) const override {
+
+		out << "TEACHER\n";
+		out << fullName << "\n";
+		out << size_group << "\n";
+		for (int i = 0; i < size_group; i++) {
+			out << group[i] << "\n";
+		}
+		out << size_spec << "\n";
+		for (int i = 0; i < size_spec; i++) {
+			out << specialty[i] << "\n";
+		}
+	}
+
+	void LoadFromFile(ifstream& in) override {
+		char buffer[256];
+		in.getline(buffer, 256);
+		SetName(buffer);
+		in >> size_group;
+		in.getline(buffer, 256);
+		delete[] group;
+		group = new char* [size_group];
+		for (int i = 0; i < size_group; i++) {
+			in.getline(buffer, 256);
+			group[i] = new char[strlen(buffer) + 1];
+			strcpy_s(group[i], strlen(buffer) + 1, buffer);
+		}
+		in >> size_spec;
+		delete[] specialty;
+		in.getline(buffer, 256);
+		specialty = new char* [size_spec];
+		for (int i = 0; i < size_spec; i++) {
+			in.getline(buffer, 256);
+			specialty[i] = new char[strlen(buffer) + 1];
+			strcpy_s(specialty[i], strlen(buffer) + 1, buffer);
+		}
+	}
+	const char* GetType() const override { return "TEACHER"; };
+};
+
+class Administration : public Base {
+private:
+	char* number;
+	char* specialty;
+	char* zone;
+
+public:
+	Administration() : Base() {
+		number = new char[1];
+		number[0] = '\0';
+		specialty = new char[1];
+		specialty[0] = '\0';
+		zone = new char[1];
+		zone[0] = '\0';
+		cout << "Admin const without param" << endl;
+	}
+
+	Administration(const char* name, const char* number, const char* specialty, const char* zone) : Base(name) {
+		this->number = new char[strlen(number) + 1];
+		strcpy_s(this->number, strlen(number) + 1, number);
+		this->specialty = new char[strlen(specialty) + 1];
+		strcpy_s(this->specialty, strlen(specialty) + 1, specialty);
+		this->zone = new char[strlen(zone) + 1];
+		strcpy_s(this->zone, strlen(zone) + 1, zone);
+		cout << "Admin const with param" << endl;
+
+	}
+
+	Administration(const Administration& other) : Base(other) {
+		number = new char[strlen(other.number) + 1];
+		strcpy_s(number, strlen(other.number) + 1, other.number);
+		specialty = new char[strlen(other.specialty) + 1];
+		strcpy_s(specialty, strlen(other.specialty) + 1, other.specialty);
+		zone = new char[strlen(other.zone) + 1];
+		strcpy_s(zone, strlen(other.zone) + 1, other.zone);
+		cout << "Admin const copy" << endl;
+	}
+
+	Administration& operator= (const Administration& other) {
+		cout << "Student op copy" << endl;
+		if (this != &other) {
+			Base::operator=(other);
+			delete[] number;
+			delete[] specialty;
+			delete[] zone;
+			number = new char[strlen(other.number) + 1];
+			strcpy_s(number, strlen(other.number) + 1, other.number);
+			specialty = new char[strlen(other.specialty) + 1];
+			strcpy_s(specialty, strlen(other.specialty) + 1, other.specialty);
+			zone = new char[strlen(other.zone) + 1];
+			strcpy_s(zone, strlen(other.zone) + 1, other.zone);
+		}
+		return *this;
+	}
+
+	~Administration() override {
+		cout << "destruct Student" << endl;
+		delete[] number;
+		delete[] specialty;
+		delete[] zone;
+
+	}
+
+	void printInfo() const override {
+		cout << "example" << endl;
+		cout << "example" << GetName() << endl;
+		cout << "example" << number << endl;
+		cout << "example" << specialty << endl;
+		cout << "example" << zone << endl;
+	}
+	void SaveToFile(ofstream& out) const override {
+
+		out << "STUDENT\n";
+		out << fullName << "\n";
+		out << number << "\n";
+		out << specialty << "\n";
+		out << zone << "\n";
+	}
+	void LoadFromFile(ifstream& in) override {
+
+		char buffer[256];
+		in.getline(buffer, 256);
+		SetName(buffer);
+		in.getline(buffer, 256);
+		delete[] number;
+		number = new char[strlen(buffer) + 1];
+		strcpy_s(number, strlen(buffer) + 1, buffer);
+		in.getline(buffer, 256);
+		delete[] specialty;
+		specialty = new char[strlen(buffer) + 1];
+		strcpy_s(specialty, strlen(buffer) + 1, buffer);
+		specialty = new char[strlen(buffer) + 1];
+		strcpy_s(specialty, strlen(buffer) + 1, buffer);
+		in.ignore();
+	}
+	const char* GetType() const override { return "ADMINISTRATION"; };
+};
 
 class Keeper {
 private:
@@ -198,6 +457,8 @@ public:
 			arr = new Base * [size];
 			for (int i = 0; i < size; i++) {
 				if (strcmp(other.arr[i]->GetType(), "STUDENT") == 0) arr[i] = new Student(*(Student*)other.arr[i]);
+				else if (strcmp(other.arr[i]->GetType(), "TEACHER") == 0) arr[i] = new Student(*(Student*)other.arr[i]);
+				else if (strcmp(other.arr[i]->GetType(), "ADMINISTRATION") == 0) arr[i] = new Student(*(Student*)other.arr[i]);
 				else arr[i] = nullptr;
 			}
 		}
@@ -205,7 +466,7 @@ public:
 	}
 
 	void Add(Base* obj) {
-		Base** newArr = new Base * [size + 1];
+		Base** newArr = new Base* [size + 1];
 		for (int i = 0; i < size; i++) newArr[i] = arr[i];
 		newArr[size] = obj;
 		delete[] arr;
@@ -274,11 +535,21 @@ public:
 		for (int i = 0; i < newSize; i++) {
 			char type[64];
 			in.getline(type, 64);
+			cout << type << endl;
 			if (strcmp(type, "STUDENT") == 0) {
 				arr[i] = new Student();
 				arr[i]->LoadFromFile(in);
 			}
+			else if (strcmp(type, "TEACHER") == 0) {
+				arr[i] = new Teacher();
+				arr[i]->LoadFromFile(in);
+			}
+			else if (strcmp(type, "ADMINISTRATION") == 0) {
+				arr[i] = new Administration();
+				arr[i]->LoadFromFile(in);
+			}
 			else {
+				cout << "haha lol" << endl;
 				arr[i] = nullptr;
 			}
 		}
@@ -296,12 +567,16 @@ public:
 int main() {
 	setlocale(LC_ALL, "Russian");
 
-	Keeper keeper;
+	//Keeper keeper;
+	//const char* data[] = { "afaa", "afafaf", "ahah"};
+	//const char* data1[] = { "a", "b", "c" };
+	//keeper.Add(new Teacher("vasya", data, data1, 3, 3));
+	//keeper.Add(new Student("test1", "well2", "let2", 1, 4.2));
+	//keeper.ShowAll();
+	//keeper.SaveToFile("data.txt");
+	//cout << "ens first test" << endl;
+	//cout << "\n";
 
-	keeper.Add(new Student("test", "well", "let", 2, 4.5));
-	keeper.Add(new Student("test1", "well2", "let2", 1, 4.2));
-	keeper.ShowAll();
-	keeper.SaveToFile("data.txt");
 	Keeper keeper2;
 	keeper2.LoadFromFile("data.txt");
 	keeper2.ShowAll();
