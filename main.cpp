@@ -121,12 +121,12 @@ public:
 	}
 
 	void printInfo() const override {
-		cout << "Ñòóäåíò: " << endl;
-		cout << "Èìÿ: " << GetName() << endl;
-		cout << "Ãðóïïà: " << group << endl;
-		cout << "Íàïðàâëåíèå: " << specialty << endl;
-		cout << "Êóðñ: " << course << endl;
-		cout << "Ñðåäíèé áàëë: " << gpa << endl;
+		cout << "Ð¡Ñ‚ÑƒÐ´ÐµÐ½Ñ‚: " << endl;
+		cout << "Ð˜Ð¼Ñ: " << GetName() << endl;
+		cout << "Ð“Ñ€ÑƒÐ¿Ð¿Ð°: " << group << endl;
+		cout << "ÐÐ°Ð¿Ñ€Ð°Ð²Ð»ÐµÐ½Ð¸Ðµ: " << specialty << endl;
+		cout << "ÐšÑƒÑ€Ñ: " << course << endl;
+		cout << "Ð¡Ñ€ÐµÐ´Ð½Ð¸Ð¹ Ð±Ð°Ð»Ð»: " << gpa << endl;
 	}
 	void SaveToFile(ofstream& out) const override {
 
@@ -255,15 +255,15 @@ public:
 	}
 
 	void printInfo() const override {
-		cout << "Ïðåïîäàâàòåëü: " << endl;
-		cout << "Èìÿ: " << GetName() << endl;
-		cout << "Êîëè÷åñòâî ãðóïï: " << size_group << endl;
+		cout << "ÐŸÑ€ÐµÐ¿Ð¾Ð´Ð°Ð²Ð°Ñ‚ÐµÐ»ÑŒ: " << endl;
+		cout << "Ð˜Ð¼Ñ: " << GetName() << endl;
+		cout << "ÐšÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ Ð³Ñ€ÑƒÐ¿Ð¿: " << size_group << endl;
 		for (int i = 0; i < size_group; i++) {
-			cout << "Ãðóïïà " << i + 1 << ":" << group[i] << endl;
+			cout << "Ð“Ñ€ÑƒÐ¿Ð¿Ð° " << i + 1 << ":" << group[i] << endl;
 		}
-		cout << "Êîëè÷åñòâî ñïåöèàëüíîñòåé: " << size_spec << endl;
+		cout << "ÐšÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÐ¿ÐµÑ†Ð¸Ð°Ð»ÑŒÐ½Ð¾ÑÑ‚ÐµÐ¹: " << size_spec << endl;
 		for (int i = 0; i < size_spec; i++) {
-			cout << "Ñïåöèàëüíîñòü " << i + 1 << ":" << specialty[i] << endl;
+			cout << "Ð¡Ð¿ÐµÑ†Ð¸Ð°Ð»ÑŒÐ½Ð¾ÑÑ‚ÑŒ " << i + 1 << ":" << specialty[i] << endl;
 		}
 	}
 	void SaveToFile(ofstream& out) const override {
@@ -370,11 +370,11 @@ public:
 	}
 
 	void printInfo() const override {
-		cout << "Ñîòðóäíèê:" << endl;
-		cout << "Èìÿ: " << GetName() << endl;
-		cout << "Íîìåð òåëåôîíà: " << number << endl;
-		cout << "Äîëæíîñòü: " << specialty << endl;
-		cout << "Îáëàñòü îòâåòñòâåííîñòè: " << zone << endl;
+		cout << "Ð¡Ð¾Ñ‚Ñ€ÑƒÐ´Ð½Ð¸Ðº:" << endl;
+		cout << "Ð˜Ð¼Ñ: " << GetName() << endl;
+		cout << "ÐÐ¾Ð¼ÐµÑ€ Ñ‚ÐµÐ»ÐµÑ„Ð¾Ð½Ð°: " << number << endl;
+		cout << "Ð”Ð¾Ð»Ð¶Ð½Ð¾ÑÑ‚ÑŒ: " << specialty << endl;
+		cout << "ÐžÐ±Ð»Ð°ÑÑ‚ÑŒ Ð¾Ñ‚Ð²ÐµÑ‚ÑÑ‚Ð²ÐµÐ½Ð½Ð¾ÑÑ‚Ð¸: " << zone << endl;
 	}
 	void SaveToFile(ofstream& out) const override {
 
@@ -469,7 +469,7 @@ public:
 
 	void Remove(int typeCode, const char* name) {
 		if (size <= 0) {
-			std::cout << "Ñïèñîê ïóñò!" << std::endl;
+			std::cout << "Ð¡Ð¿Ð¸ÑÐ¾Ðº Ð¿ÑƒÑÑ‚!" << std::endl;
 			return;
 		}
 
@@ -479,7 +479,7 @@ public:
 		case 2: typeName = "TEACHER"; break;
 		case 3: typeName = "ADMINISTRATION"; break;
 		default:
-			std::cout << "Íåâåðíûé êîä òèïà: " << typeCode << std::endl;
+			std::cout << "ÐÐµÐ²ÐµÑ€Ð½Ñ‹Ð¹ ÐºÐ¾Ð´ Ñ‚Ð¸Ð¿Ð°: " << typeCode << std::endl;
 			return;
 		}
 
@@ -494,7 +494,7 @@ public:
 		}
 
 		if (index == -1) {
-			std::cout << "Îáúåêò íå íàéäåí!" << std::endl;
+			std::cout << "ÐžÐ±ÑŠÐµÐºÑ‚ Ð½Ðµ Ð½Ð°Ð¹Ð´ÐµÐ½!" << std::endl;
 			return;
 		}
 
@@ -514,13 +514,13 @@ public:
 		arr = newArr;
 		--size;
 
-		std::cout << "Îáúåêò óäàë¸í!" << std::endl;
+		std::cout << "ÐžÐ±ÑŠÐµÐºÑ‚ ÑƒÐ´Ð°Ð»Ñ‘Ð½!" << std::endl;
 	}
 
 
 	void Edit(int typeCode, const char* name) {
 		if (size <= 0)
-			throw KeeperException("Îøèáêà: ñïèñîê îáúåêòîâ ïóñò!");
+			throw KeeperException("ÐžÑˆÐ¸Ð±ÐºÐ°: ÑÐ¿Ð¸ÑÐ¾Ðº Ð¾Ð±ÑŠÐµÐºÑ‚Ð¾Ð² Ð¿ÑƒÑÑ‚!");
 
 		const char* typeName = nullptr;
 		switch (typeCode) {
@@ -528,7 +528,7 @@ public:
 		case 2: typeName = "TEACHER"; break;
 		case 3: typeName = "ADMINISTRATION"; break;
 		default:
-			throw KeeperException("Îøèáêà: íåâåðíûé êîä òèïà îáúåêòà!");
+			throw KeeperException("ÐžÑˆÐ¸Ð±ÐºÐ°: Ð½ÐµÐ²ÐµÑ€Ð½Ñ‹Ð¹ ÐºÐ¾Ð´ Ñ‚Ð¸Ð¿Ð° Ð¾Ð±ÑŠÐµÐºÑ‚Ð°!");
 		}
 
 		int index = -1;
@@ -541,41 +541,41 @@ public:
 		}
 
 		if (index == -1)
-			throw KeeperException("Îøèáêà: îáúåêò íå íàéäåí!");
+			throw KeeperException("ÐžÑˆÐ¸Ð±ÐºÐ°: Ð¾Ð±ÑŠÐµÐºÑ‚ Ð½Ðµ Ð½Ð°Ð¹Ð´ÐµÐ½!");
 
-		cout << "Ðåäàêòèðîâàíèå " << typeName << " (" << arr[index]->GetName() << ")\n";
+		cout << "Ð ÐµÐ´Ð°ÐºÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ " << typeName << " (" << arr[index]->GetName() << ")\n";
 		if (strcmp(typeName, "STUDENT") == 0) {
 			Student* st = dynamic_cast<Student*>(arr[index]);
 			char newName[64], group[64], spec[64];
 			int course; double gpa;
-			cout << "Íîâîå èìÿ: "; cin.getline(newName, 64);
-			cout << "Ãðóïïà: "; cin.getline(group, 64);
-			cout << "Íàïðàâëåíèå: "; cin.getline(spec, 64);
-			cout << "Êóðñ: "; cin >> course;
-			cout << "Ñðåäíèé áàëë: "; cin >> gpa;
+			cout << "ÐÐ¾Ð²Ð¾Ðµ Ð¸Ð¼Ñ: "; cin.getline(newName, 64);
+			cout << "Ð“Ñ€ÑƒÐ¿Ð¿Ð°: "; cin.getline(group, 64);
+			cout << "ÐÐ°Ð¿Ñ€Ð°Ð²Ð»ÐµÐ½Ð¸Ðµ: "; cin.getline(spec, 64);
+			cout << "ÐšÑƒÑ€Ñ: "; cin >> course;
+			cout << "Ð¡Ñ€ÐµÐ´Ð½Ð¸Ð¹ Ð±Ð°Ð»Ð»: "; cin >> gpa;
 			*st = Student(newName, group, spec, course, gpa);
 		}
 		else if (strcmp(typeName, "TEACHER") == 0) {
 			Teacher* t = dynamic_cast<Teacher*>(arr[index]);
 			char newName[64];
 			int nGroups, nSpecs;
-			cout << "Íîâîå èìÿ: "; cin.getline(newName, 64);
+			cout << "ÐÐ¾Ð²Ð¾Ðµ Ð¸Ð¼Ñ: "; cin.getline(newName, 64);
 
-			cout << "Êîëè÷åñòâî ãðóïï: "; cin >> nGroups; cin.ignore();
+			cout << "ÐšÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ Ð³Ñ€ÑƒÐ¿Ð¿: "; cin >> nGroups; cin.ignore();
 			char** groups = new char* [nGroups];
 			for (int i = 0; i < nGroups; i++) {
 				char buf[256];
-				cout << "Ãðóïïà " << i + 1 << ": ";
+				cout << "Ð“Ñ€ÑƒÐ¿Ð¿Ð° " << i + 1 << ": ";
 				cin.getline(buf, 256);
 				groups[i] = new char[strlen(buf) + 1];
 				strcpy_s(groups[i], strlen(buf) + 1, buf);
 			}
 
-			cout << "Êîëè÷åñòâî ñïåöèàëüíîñòåé: "; cin >> nSpecs; cin.ignore();
+			cout << "ÐšÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÐ¿ÐµÑ†Ð¸Ð°Ð»ÑŒÐ½Ð¾ÑÑ‚ÐµÐ¹: "; cin >> nSpecs; cin.ignore();
 			char** specs = new char* [nSpecs];
 			for (int i = 0; i < nSpecs; i++) {
 				char buf[256];
-				cout << "Ñïåöèàëüíîñòü " << i + 1 << ": ";
+				cout << "Ð¡Ð¿ÐµÑ†Ð¸Ð°Ð»ÑŒÐ½Ð¾ÑÑ‚ÑŒ " << i + 1 << ": ";
 				cin.getline(buf, 256);
 				specs[i] = new char[strlen(buf) + 1];
 				strcpy_s(specs[i], strlen(buf) + 1, buf);
@@ -591,14 +591,14 @@ public:
 		else if (strcmp(typeName, "ADMINISTRATION") == 0) {
 			Administration* a = dynamic_cast<Administration*>(arr[index]);
 			char newName[64], number[64], spec[64], zone[64];
-			cout << "Íîâîå èìÿ: "; cin.getline(newName, 64);
-			cout << "Íîìåð òåëåôîíà: "; cin.getline(number, 64);
-			cout << "Äîëæíîñòü: "; cin.getline(spec, 64);
-			cout << "Îáëàñòü îòâåòñòâåííîñòè: "; cin.getline(zone, 64);
+			cout << "ÐÐ¾Ð²Ð¾Ðµ Ð¸Ð¼Ñ: "; cin.getline(newName, 64);
+			cout << "ÐÐ¾Ð¼ÐµÑ€ Ñ‚ÐµÐ»ÐµÑ„Ð¾Ð½Ð°: "; cin.getline(number, 64);
+			cout << "Ð”Ð¾Ð»Ð¶Ð½Ð¾ÑÑ‚ÑŒ: "; cin.getline(spec, 64);
+			cout << "ÐžÐ±Ð»Ð°ÑÑ‚ÑŒ Ð¾Ñ‚Ð²ÐµÑ‚ÑÑ‚Ð²ÐµÐ½Ð½Ð¾ÑÑ‚Ð¸: "; cin.getline(zone, 64);
 			*a = Administration(newName, number, spec, zone);
 		}
 
-		cout << "Èçìåíåíèÿ óñïåøíî ñîõðàíåíû!\n";
+		cout << "Ð˜Ð·Ð¼ÐµÐ½ÐµÐ½Ð¸Ñ ÑƒÑÐ¿ÐµÑˆÐ½Ð¾ ÑÐ¾Ñ…Ñ€Ð°Ð½ÐµÐ½Ñ‹!\n";
 	}
 
 
@@ -693,36 +693,36 @@ int main() {
 	double gpa = 0.0;
 
 	do {
-		cout << "\n===== ÌÅÍÞ ÓÏÐÀÂËÅÍÈß KEEPER =====\n";
-		cout << "1. Äîáàâèòü îáúåêò\n";
-		cout << "2. Óäàëèòü îáúåêò\n";
-		cout << "3. Ïîêàçàòü âñå îáúåêòû\n";
-		cout << "4. Ñîõðàíèòü äàííûå â ôàéë\n";
-		cout << "5. Çàãðóçèòü äàííûå èç ôàéëà\n";
-		cout << "6. Èçìåíèòü îáúåêò\n";
-		cout << "0. Âûõîä\n";
-		cout << "Âûáåðèòå äåéñòâèå: ";
+		cout << "\n===== ÐœÐ•ÐÐ® Ð£ÐŸÐ ÐÐ’Ð›Ð•ÐÐ˜Ð¯ KEEPER =====\n";
+		cout << "1. Ð”Ð¾Ð±Ð°Ð²Ð¸Ñ‚ÑŒ Ð¾Ð±ÑŠÐµÐºÑ‚\n";
+		cout << "2. Ð£Ð´Ð°Ð»Ð¸Ñ‚ÑŒ Ð¾Ð±ÑŠÐµÐºÑ‚\n";
+		cout << "3. ÐŸÐ¾ÐºÐ°Ð·Ð°Ñ‚ÑŒ Ð²ÑÐµ Ð¾Ð±ÑŠÐµÐºÑ‚Ñ‹\n";
+		cout << "4. Ð¡Ð¾Ñ…Ñ€Ð°Ð½Ð¸Ñ‚ÑŒ Ð´Ð°Ð½Ð½Ñ‹Ðµ Ð² Ñ„Ð°Ð¹Ð»\n";
+		cout << "5. Ð—Ð°Ð³Ñ€ÑƒÐ·Ð¸Ñ‚ÑŒ Ð´Ð°Ð½Ð½Ñ‹Ðµ Ð¸Ð· Ñ„Ð°Ð¹Ð»Ð°\n";
+		cout << "6. Ð˜Ð·Ð¼ÐµÐ½Ð¸Ñ‚ÑŒ Ð¾Ð±ÑŠÐµÐºÑ‚\n";
+		cout << "0. Ð’Ñ‹Ñ…Ð¾Ð´\n";
+		cout << "Ð’Ñ‹Ð±ÐµÑ€Ð¸Ñ‚Ðµ Ð´ÐµÐ¹ÑÑ‚Ð²Ð¸Ðµ: ";
 		cin >> choice;
 		cout << endl;
 
 		switch (choice) {
 		case 1:
-			cout << "1. Äîáàâèòü ñòóäåíòà\n";
-			cout << "2. Äîáàâèòü ïðåïîäàâàòåëÿ\n";
-			cout << "3. Äîáàâèòü ñîòðóäíèêà\n";
+			cout << "1. Ð”Ð¾Ð±Ð°Ð²Ð¸Ñ‚ÑŒ ÑÑ‚ÑƒÐ´ÐµÐ½Ñ‚Ð°\n";
+			cout << "2. Ð”Ð¾Ð±Ð°Ð²Ð¸Ñ‚ÑŒ Ð¿Ñ€ÐµÐ¿Ð¾Ð´Ð°Ð²Ð°Ñ‚ÐµÐ»Ñ\n";
+			cout << "3. Ð”Ð¾Ð±Ð°Ð²Ð¸Ñ‚ÑŒ ÑÐ¾Ñ‚Ñ€ÑƒÐ´Ð½Ð¸ÐºÐ°\n";
 			cin >> choice1;
 			switch (choice1) {
 			case 1:
 				cin.ignore();
-				cout << "Ââåäèòå èìÿ: \n";
+				cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð¸Ð¼Ñ: \n";
 				cin.getline(nam, 64);
-				cout << "Ââåäèòå ãðóïïó: \n";
+				cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð³Ñ€ÑƒÐ¿Ð¿Ñƒ: \n";
 				cin.getline(group, 64);
-				cout << "Ââåäèòå íàïðàâëåíèå: \n";
+				cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð½Ð°Ð¿Ñ€Ð°Ð²Ð»ÐµÐ½Ð¸Ðµ: \n";
 				cin.getline(spec, 64);
-				cout << "Ââåäèòå íîìåð êóðñà: \n";
+				cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð½Ð¾Ð¼ÐµÑ€ ÐºÑƒÑ€ÑÐ°: \n";
 				cin >> course;
-				cout << "Ââåäèòå ñðåäíèé áàëë: \n";
+				cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÑÑ€ÐµÐ´Ð½Ð¸Ð¹ Ð±Ð°Ð»Ð»: \n";
 				cin >> gpa;
 
 				keeper.Add(new Student(nam, group, spec, course, gpa));
@@ -730,32 +730,32 @@ int main() {
 
 			case 2: {
 				cin.ignore();
-				cout << "Ââåäèòå èìÿ:\n";
+				cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð¸Ð¼Ñ:\n";
 				cin.getline(nam, 64);
 
 				int size_group;
-				cout << "Ñêîëüêî ãðóïï âû õîòèòå äîáàâèòü?\n";
+				cout << "Ð¡ÐºÐ¾Ð»ÑŒÐºÐ¾ Ð³Ñ€ÑƒÐ¿Ð¿ Ð²Ñ‹ Ñ…Ð¾Ñ‚Ð¸Ñ‚Ðµ Ð´Ð¾Ð±Ð°Ð²Ð¸Ñ‚ÑŒ?\n";
 				cin >> size_group;
 				cin.ignore();
 
 				char** groups = new char* [size_group];
 				for (int i = 0; i < size_group; i++) {
 					char buffer[256];
-					cout << "Ââåäèòå íàçâàíèå ãðóïïû " << i + 1 << ": ";
+					cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð½Ð°Ð·Ð²Ð°Ð½Ð¸Ðµ Ð³Ñ€ÑƒÐ¿Ð¿Ñ‹ " << i + 1 << ": ";
 					cin.getline(buffer, 256);
 					groups[i] = new char[strlen(buffer) + 1];
 					strcpy_s(groups[i], strlen(buffer) + 1, buffer);
 				}
 
 				int size_spec;
-				cout << "Ñêîëüêî ñïåöèàëüíîñòåé âû õîòèòå äîáàâèòü?\n";
+				cout << "Ð¡ÐºÐ¾Ð»ÑŒÐºÐ¾ ÑÐ¿ÐµÑ†Ð¸Ð°Ð»ÑŒÐ½Ð¾ÑÑ‚ÐµÐ¹ Ð²Ñ‹ Ñ…Ð¾Ñ‚Ð¸Ñ‚Ðµ Ð´Ð¾Ð±Ð°Ð²Ð¸Ñ‚ÑŒ?\n";
 				cin >> size_spec;
 				cin.ignore();
 
 				char** specs = new char* [size_spec];
 				for (int i = 0; i < size_spec; i++) {
 					char buffer[256];
-					cout << "Ââåäèòå íàçâàíèå ñïåöèàëüíîñòè " << i + 1 << ": ";
+					cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð½Ð°Ð·Ð²Ð°Ð½Ð¸Ðµ ÑÐ¿ÐµÑ†Ð¸Ð°Ð»ÑŒÐ½Ð¾ÑÑ‚Ð¸ " << i + 1 << ": ";
 					cin.getline(buffer, 256);
 					specs[i] = new char[strlen(buffer) + 1];
 					strcpy_s(specs[i], strlen(buffer) + 1, buffer);
@@ -772,30 +772,30 @@ int main() {
 
 			case 3:
 				cin.ignore();
-				cout << "Ââåäèòå èìÿ: \n";
+				cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð¸Ð¼Ñ: \n";
 				cin.getline(nam, 64);
-				cout << "Ââåäèòå íîìåð òåëåôîíà: \n";
+				cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð½Ð¾Ð¼ÐµÑ€ Ñ‚ÐµÐ»ÐµÑ„Ð¾Ð½Ð°: \n";
 				cin.getline(number, 64);
-				cout << "Ââåäèòå äîëæíîñòü: \n";
+				cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð´Ð¾Ð»Ð¶Ð½Ð¾ÑÑ‚ÑŒ: \n";
 				cin.getline(specialty, 64);
-				cout << "Ââåäèòå îáëàñòü îòâåòñòâåííîñòè: \n";
+				cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð¾Ð±Ð»Ð°ÑÑ‚ÑŒ Ð¾Ñ‚Ð²ÐµÑ‚ÑÑ‚Ð²ÐµÐ½Ð½Ð¾ÑÑ‚Ð¸: \n";
 				cin.getline(zone, 64);
 
 				keeper.Add(new Administration(nam, number, specialty, zone));
 				break;
 			default:
-				cout << "Îøèáêà: íåâåðíûé âûáîð!\n";
+				cout << "ÐžÑˆÐ¸Ð±ÐºÐ°: Ð½ÐµÐ²ÐµÑ€Ð½Ñ‹Ð¹ Ð²Ñ‹Ð±Ð¾Ñ€!\n";
 				break;
 			}
 			break;
 
 		case 2:
-			cout << "1. Óäàëèòü ñòóäåíòà:\n";
-			cout << "2. Óäàëèòü ïðåïîäàâàòåëÿ:\n";
-			cout << "3. Óäàëèòü ñîòðóäíèêà:\n";
+			cout << "1. Ð£Ð´Ð°Ð»Ð¸Ñ‚ÑŒ ÑÑ‚ÑƒÐ´ÐµÐ½Ñ‚Ð°:\n";
+			cout << "2. Ð£Ð´Ð°Ð»Ð¸Ñ‚ÑŒ Ð¿Ñ€ÐµÐ¿Ð¾Ð´Ð°Ð²Ð°Ñ‚ÐµÐ»Ñ:\n";
+			cout << "3. Ð£Ð´Ð°Ð»Ð¸Ñ‚ÑŒ ÑÐ¾Ñ‚Ñ€ÑƒÐ´Ð½Ð¸ÐºÐ°:\n";
 			cin >> choice2;
 			cin.ignore();
-			cout << "Ââåäèòå èìÿ:\n";
+			cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð¸Ð¼Ñ:\n";
 			cin.getline(nam, 64);
 			keeper.Remove(choice2, nam);
 			break;
@@ -806,18 +806,18 @@ int main() {
 
 		case 4:
 			keeper.SaveToFile("data.txt");
-			cout << "Äàííûå ñîõðàíåíû â ôàéë data.txt\n";
+			cout << "Ð”Ð°Ð½Ð½Ñ‹Ðµ ÑÐ¾Ñ…Ñ€Ð°Ð½ÐµÐ½Ñ‹ Ð² Ñ„Ð°Ð¹Ð» data.txt\n";
 			break;
 
 
 		case 6:
 			try {
-				cout << "1. Èçìåíèòü ñòóäåíòà\n";
-				cout << "2. Èçìåíèòü ïðåïîäàâàòåëÿ\n";
-				cout << "3. Èçìåíèòü ñîòðóäíèêà\n";
+				cout << "1. Ð˜Ð·Ð¼ÐµÐ½Ð¸Ñ‚ÑŒ ÑÑ‚ÑƒÐ´ÐµÐ½Ñ‚Ð°\n";
+				cout << "2. Ð˜Ð·Ð¼ÐµÐ½Ð¸Ñ‚ÑŒ Ð¿Ñ€ÐµÐ¿Ð¾Ð´Ð°Ð²Ð°Ñ‚ÐµÐ»Ñ\n";
+				cout << "3. Ð˜Ð·Ð¼ÐµÐ½Ð¸Ñ‚ÑŒ ÑÐ¾Ñ‚Ñ€ÑƒÐ´Ð½Ð¸ÐºÐ°\n";
 				cin >> choice2;
 				cin.ignore();
-				cout << "Ââåäèòå èìÿ äëÿ èçìåíåíèÿ:\n";
+				cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð¸Ð¼Ñ Ð´Ð»Ñ Ð¸Ð·Ð¼ÐµÐ½ÐµÐ½Ð¸Ñ:\n";
 				cin.getline(nam, 64);
 				keeper.Edit(choice2, nam);
 
@@ -829,15 +829,15 @@ int main() {
 
 		case 5:
 			keeper.LoadFromFile("data.txt");
-			cout << "Äàííûå çàãðóæåíû èç ôàéëà data.txt\n";
+			cout << "Ð”Ð°Ð½Ð½Ñ‹Ðµ Ð·Ð°Ð³Ñ€ÑƒÐ¶ÐµÐ½Ñ‹ Ð¸Ð· Ñ„Ð°Ð¹Ð»Ð° data.txt\n";
 			break;
 
 		case 0:
-			cout << "Âûõîä èç ïðîãðàììû...\n";
+			cout << "Ð’Ñ‹Ñ…Ð¾Ð´ Ð¸Ð· Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ñ‹...\n";
 			break;
 
 		default:
-			cout << "Îøèáêà: íåâåðíûé âûáîð!\n";
+			cout << "ÐžÑˆÐ¸Ð±ÐºÐ°: Ð½ÐµÐ²ÐµÑ€Ð½Ñ‹Ð¹ Ð²Ñ‹Ð±Ð¾Ñ€!\n";
 			break;
 		}
 
