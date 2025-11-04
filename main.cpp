@@ -544,12 +544,10 @@ public:
 			throw KeeperException("Ошибка: объект не найден!");
 
 		cout << "Редактирование " << typeName << " (" << arr[index]->GetName() << ")\n";
-		//cin.ignore();
 		if (strcmp(typeName, "STUDENT") == 0) {
 			Student* st = dynamic_cast<Student*>(arr[index]);
 			char newName[64], group[64], spec[64];
 			int course; double gpa;
-			//cin.ignore();
 			cout << "Новое имя: "; cin.getline(newName, 64);
 			cout << "Группа: "; cin.getline(group, 64);
 			cout << "Направление: "; cin.getline(spec, 64);
@@ -561,7 +559,6 @@ public:
 			Teacher* t = dynamic_cast<Teacher*>(arr[index]);
 			char newName[64];
 			int nGroups, nSpecs;
-			cin.ignore();
 			cout << "Новое имя: "; cin.getline(newName, 64);
 
 			cout << "Количество групп: "; cin >> nGroups; cin.ignore();
@@ -594,7 +591,6 @@ public:
 		else if (strcmp(typeName, "ADMINISTRATION") == 0) {
 			Administration* a = dynamic_cast<Administration*>(arr[index]);
 			char newName[64], number[64], spec[64], zone[64];
-			cin.ignore();
 			cout << "Новое имя: "; cin.getline(newName, 64);
 			cout << "Номер телефона: "; cin.getline(number, 64);
 			cout << "Должность: "; cin.getline(spec, 64);
