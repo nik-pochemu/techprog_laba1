@@ -2,11 +2,12 @@
 #include <cstring>
 #include <fstream>
 #include <locale> 
-#include <string>
+#include <windows.h>
+
 using namespace std;
 
 class Base {
-protected: 
+protected:
 	char* fullName;
 public:
 	Base() {
@@ -32,6 +33,7 @@ public:
 		if (this != &other) {
 			delete[] fullName;
 			fullName = new char[strlen(other.fullName) + 1];
+			strcpy_s(fullName, strlen(other.fullName) + 1, other.fullName);
 		}
 		return *this;
 	}
@@ -104,7 +106,7 @@ public:
 			group = new char[strlen(other.group) + 1];
 			strcpy_s(group, strlen(other.group) + 1, other.group);
 			specialty = new char[strlen(other.specialty) + 1];
-			strcpy_s(specialty,strlen(other.specialty) + 1, other.specialty);
+			strcpy_s(specialty, strlen(other.specialty) + 1, other.specialty);
 			course = other.course;
 			gpa = other.gpa;
 		}
@@ -119,12 +121,12 @@ public:
 	}
 
 	void printInfo() const override {
-		cout << "example" << endl;
-		cout << "example" << GetName() << endl;
-		cout << "example" << group << endl;
-		cout << "example" << specialty << endl;
-		cout << "example" << course << endl;
-		cout << "example" << gpa << endl;
+		cout << "Студент: " << endl;
+		cout << "Имя: " << GetName() << endl;
+		cout << "Группа: " << group << endl;
+		cout << "Направление: " << specialty << endl;
+		cout << "Курс: " << course << endl;
+		cout << "Средний балл: " << gpa << endl;
 	}
 	void SaveToFile(ofstream& out) const override {
 
@@ -173,24 +175,9 @@ public:
 
 	}
 
-	/*Teacher(group(nullptr), size(0)) : Base() {}
-	void input() {
-		cout << "Сколько групп вы хотите добавить?" << endl;
-		cin >> size;
-		cin.ignore();
-		group = new char* [size];
-		for (int i = 0; i < size; i++) {
-			char buffer[256];
-			cout << "Введите название/номер группы:";
-			cin.getline(buffer, 256);
-			group[i] = new char[strlen(buffer) + 1];
-			strcpy_s(group[i], strlen(buffer) + 1, buffer);
-		}
-	}*/
-
 	Teacher(const char* name, const char* group[], const char* specialty[], const int size_group, const int size_spec) : Base(name) {
-		
-		this->group  = new char* [sizeof(size_group)];
+
+		this->group = new char* [sizeof(size_group)];
 		for (int i = 0; i < size_group; i++) {
 			this->group[i] = new char[strlen(group[i]) + 1];
 			strcpy_s(this->group[i], strlen(group[i]) + 1, group[i]);
@@ -268,15 +255,15 @@ public:
 	}
 
 	void printInfo() const override {
-		cout << "example" << endl;
-		cout << "example" << GetName() << endl;
-		cout << size_group << endl;
+		cout << "Преподаватель: " << endl;
+		cout << "Имя: " << GetName() << endl;
+		cout << "Количество групп: " << size_group << endl;
 		for (int i = 0; i < size_group; i++) {
-			cout << group[i] << endl;
+			cout << "Группа " << i + 1 << ":" << group[i] << endl;
 		}
-		cout << size_spec << endl;
+		cout << "Количество специальностей: " << size_spec << endl;
 		for (int i = 0; i < size_spec; i++) {
-			cout << specialty[i] << endl;
+			cout << "Специальность " << i + 1 << ":" << specialty[i] << endl;
 		}
 	}
 	void SaveToFile(ofstream& out) const override {
@@ -358,7 +345,7 @@ public:
 	}
 
 	Administration& operator= (const Administration& other) {
-		cout << "Student op copy" << endl;
+		cout << "Admin op copy" << endl;
 		if (this != &other) {
 			Base::operator=(other);
 			delete[] number;
@@ -375,7 +362,7 @@ public:
 	}
 
 	~Administration() override {
-		cout << "destruct Student" << endl;
+		cout << "destruct Admin" << endl;
 		delete[] number;
 		delete[] specialty;
 		delete[] zone;
@@ -383,15 +370,15 @@ public:
 	}
 
 	void printInfo() const override {
-		cout << "example" << endl;
-		cout << "example" << GetName() << endl;
-		cout << "example" << number << endl;
-		cout << "example" << specialty << endl;
-		cout << "example" << zone << endl;
+		cout << "Сотрудник:" << endl;
+		cout << "Имя: " << GetName() << endl;
+		cout << "Номер телефона: " << number << endl;
+		cout << "Должность: " << specialty << endl;
+		cout << "Область ответственности: " << zone << endl;
 	}
 	void SaveToFile(ofstream& out) const override {
 
-		out << "STUDENT\n";
+		out << "ADMINISTRATION\n";
 		out << fullName << "\n";
 		out << number << "\n";
 		out << specialty << "\n";
@@ -415,6 +402,11 @@ public:
 		in.ignore();
 	}
 	const char* GetType() const override { return "ADMINISTRATION"; };
+};
+
+class KeeperException : public exception {
+public:
+	KeeperException(const char* msg) : exception(msg) {}
 };
 
 class Keeper {
@@ -457,8 +449,8 @@ public:
 			arr = new Base * [size];
 			for (int i = 0; i < size; i++) {
 				if (strcmp(other.arr[i]->GetType(), "STUDENT") == 0) arr[i] = new Student(*(Student*)other.arr[i]);
-				else if (strcmp(other.arr[i]->GetType(), "TEACHER") == 0) arr[i] = new Student(*(Student*)other.arr[i]);
-				else if (strcmp(other.arr[i]->GetType(), "ADMINISTRATION") == 0) arr[i] = new Student(*(Student*)other.arr[i]);
+				else if (strcmp(other.arr[i]->GetType(), "TEACHER") == 0) arr[i] = new Teacher(*(Teacher*)other.arr[i]);
+				else if (strcmp(other.arr[i]->GetType(), "ADMINISTRATION") == 0) arr[i] = new Administration(*(Administration*)other.arr[i]);
 				else arr[i] = nullptr;
 			}
 		}
@@ -466,7 +458,7 @@ public:
 	}
 
 	void Add(Base* obj) {
-		Base** newArr = new Base* [size + 1];
+		Base** newArr = new Base * [size + 1];
 		for (int i = 0; i < size; i++) newArr[i] = arr[i];
 		newArr[size] = obj;
 		delete[] arr;
@@ -475,23 +467,144 @@ public:
 		cout << "new obj" << size << endl;
 	}
 
-	void Remove(int index) {
-		if (index < 0 || index >= size) {
-			cout << "error" << endl;
+	void Remove(int typeCode, const char* name) {
+		if (size <= 0) {
+			std::cout << "Список пуст!" << std::endl;
+			return;
+		}
+
+		const char* typeName = nullptr;
+		switch (typeCode) {
+		case 1: typeName = "STUDENT"; break;
+		case 2: typeName = "TEACHER"; break;
+		case 3: typeName = "ADMINISTRATION"; break;
+		default:
+			std::cout << "Неверный код типа: " << typeCode << std::endl;
+			return;
+		}
+
+		int index = -1;
+		for (int i = 0; i < size; ++i) {
+			if (arr[i] != nullptr &&
+				std::strcmp(arr[i]->GetType(), typeName) == 0 &&
+				std::strcmp(arr[i]->GetName(), name) == 0) {
+				index = i;
+				break;
+			}
+		}
+
+		if (index == -1) {
+			std::cout << "Объект не найден!" << std::endl;
 			return;
 		}
 
 		delete arr[index];
-		Base** newArr = new Base*[size - 1];
-		for (int i = 0, j = 0; i < size; i++) {
-			if (i == index) continue;
-			newArr[j++] = arr[i];
+		arr[index] = nullptr;
+
+		Base** newArr = nullptr;
+		if (size - 1 > 0) {
+			newArr = new Base * [size - 1];
+			int j = 0;
+			for (int i = 0; i < size; ++i) {
+				if (i == index) continue;
+				newArr[j++] = arr[i];
+			}
 		}
 		delete[] arr;
 		arr = newArr;
-		size--;
-		cout << "obj deleted" << endl;
+		--size;
+
+		std::cout << "Объект удалён!" << std::endl;
 	}
+
+
+	void Edit(int typeCode, const char* name) {
+		if (size <= 0)
+			throw KeeperException("Ошибка: список объектов пуст!");
+
+		const char* typeName = nullptr;
+		switch (typeCode) {
+		case 1: typeName = "STUDENT"; break;
+		case 2: typeName = "TEACHER"; break;
+		case 3: typeName = "ADMINISTRATION"; break;
+		default:
+			throw KeeperException("Ошибка: неверный код типа объекта!");
+		}
+
+		int index = -1;
+		for (int i = 0; i < size; ++i) {
+			if (arr[i] && strcmp(arr[i]->GetType(), typeName) == 0 &&
+				strcmp(arr[i]->GetName(), name) == 0) {
+				index = i;
+				break;
+			}
+		}
+
+		if (index == -1)
+			throw KeeperException("Ошибка: объект не найден!");
+
+		cout << "Редактирование " << typeName << " (" << arr[index]->GetName() << ")\n";
+		//cin.ignore();
+		if (strcmp(typeName, "STUDENT") == 0) {
+			Student* st = dynamic_cast<Student*>(arr[index]);
+			char newName[64], group[64], spec[64];
+			int course; double gpa;
+			//cin.ignore();
+			cout << "Новое имя: "; cin.getline(newName, 64);
+			cout << "Группа: "; cin.getline(group, 64);
+			cout << "Направление: "; cin.getline(spec, 64);
+			cout << "Курс: "; cin >> course;
+			cout << "Средний балл: "; cin >> gpa;
+			*st = Student(newName, group, spec, course, gpa);
+		}
+		else if (strcmp(typeName, "TEACHER") == 0) {
+			Teacher* t = dynamic_cast<Teacher*>(arr[index]);
+			char newName[64];
+			int nGroups, nSpecs;
+			cin.ignore();
+			cout << "Новое имя: "; cin.getline(newName, 64);
+
+			cout << "Количество групп: "; cin >> nGroups; cin.ignore();
+			char** groups = new char* [nGroups];
+			for (int i = 0; i < nGroups; i++) {
+				char buf[256];
+				cout << "Группа " << i + 1 << ": ";
+				cin.getline(buf, 256);
+				groups[i] = new char[strlen(buf) + 1];
+				strcpy_s(groups[i], strlen(buf) + 1, buf);
+			}
+
+			cout << "Количество специальностей: "; cin >> nSpecs; cin.ignore();
+			char** specs = new char* [nSpecs];
+			for (int i = 0; i < nSpecs; i++) {
+				char buf[256];
+				cout << "Специальность " << i + 1 << ": ";
+				cin.getline(buf, 256);
+				specs[i] = new char[strlen(buf) + 1];
+				strcpy_s(specs[i], strlen(buf) + 1, buf);
+			}
+
+			*t = Teacher(newName, (const char**)groups, (const char**)specs, nGroups, nSpecs);
+
+			for (int i = 0; i < nGroups; i++) delete[] groups[i];
+			delete[] groups;
+			for (int i = 0; i < nSpecs; i++) delete[] specs[i];
+			delete[] specs;
+		}
+		else if (strcmp(typeName, "ADMINISTRATION") == 0) {
+			Administration* a = dynamic_cast<Administration*>(arr[index]);
+			char newName[64], number[64], spec[64], zone[64];
+			cin.ignore();
+			cout << "Новое имя: "; cin.getline(newName, 64);
+			cout << "Номер телефона: "; cin.getline(number, 64);
+			cout << "Должность: "; cin.getline(spec, 64);
+			cout << "Область ответственности: "; cin.getline(zone, 64);
+			*a = Administration(newName, number, spec, zone);
+		}
+
+		cout << "Изменения успешно сохранены!\n";
+	}
+
 
 	void ShowAll() const {
 		cout << "all obj" << endl;
@@ -527,7 +640,7 @@ public:
 		delete[] arr;
 		arr = nullptr;
 		size = 0;
-		
+
 		int newSize;
 		in >> newSize;
 		in.ignore();
@@ -535,7 +648,6 @@ public:
 		for (int i = 0; i < newSize; i++) {
 			char type[64];
 			in.getline(type, 64);
-			cout << type << endl;
 			if (strcmp(type, "STUDENT") == 0) {
 				arr[i] = new Student();
 				arr[i]->LoadFromFile(in);
@@ -563,23 +675,184 @@ public:
 };
 
 
-
 int main() {
 	setlocale(LC_ALL, "Russian");
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
 
-	//Keeper keeper;
-	//const char* data[] = { "afaa", "afafaf", "ahah"};
-	//const char* data1[] = { "a", "b", "c" };
-	//keeper.Add(new Teacher("vasya", data, data1, 3, 3));
-	//keeper.Add(new Student("test1", "well2", "let2", 1, 4.2));
-	//keeper.ShowAll();
-	//keeper.SaveToFile("data.txt");
-	//cout << "ens first test" << endl;
-	//cout << "\n";
+	Keeper keeper;
 
-	Keeper keeper2;
-	keeper2.LoadFromFile("data.txt");
-	keeper2.ShowAll();
+	int choice;
+	int choice1;
+	int choice2;
+
+	char* nam = new char[64];
+	char* group = new char[64];
+	char* spec = new char[64];
+	char* number = new char[64];
+	char* specialty = new char[64];
+	char* zone = new char[64];
+
+	int course = 0;
+	double gpa = 0.0;
+
+	do {
+		cout << "\n===== МЕНЮ УПРАВЛЕНИЯ KEEPER =====\n";
+		cout << "1. Добавить объект\n";
+		cout << "2. Удалить объект\n";
+		cout << "3. Показать все объекты\n";
+		cout << "4. Сохранить данные в файл\n";
+		cout << "5. Загрузить данные из файла\n";
+		cout << "6. Изменить объект\n";
+		cout << "0. Выход\n";
+		cout << "Выберите действие: ";
+		cin >> choice;
+		cout << endl;
+
+		switch (choice) {
+		case 1:
+			cout << "1. Добавить студента\n";
+			cout << "2. Добавить преподавателя\n";
+			cout << "3. Добавить сотрудника\n";
+			cin >> choice1;
+			switch (choice1) {
+			case 1:
+				cin.ignore();
+				cout << "Введите имя: \n";
+				cin.getline(nam, 64);
+				cout << "Введите группу: \n";
+				cin.getline(group, 64);
+				cout << "Введите направление: \n";
+				cin.getline(spec, 64);
+				cout << "Введите номер курса: \n";
+				cin >> course;
+				cout << "Введите средний балл: \n";
+				cin >> gpa;
+
+				keeper.Add(new Student(nam, group, spec, course, gpa));
+				break;
+
+			case 2: {
+				cin.ignore();
+				cout << "Введите имя:\n";
+				cin.getline(nam, 64);
+
+				int size_group;
+				cout << "Сколько групп вы хотите добавить?\n";
+				cin >> size_group;
+				cin.ignore();
+
+				char** groups = new char* [size_group];
+				for (int i = 0; i < size_group; i++) {
+					char buffer[256];
+					cout << "Введите название группы " << i + 1 << ": ";
+					cin.getline(buffer, 256);
+					groups[i] = new char[strlen(buffer) + 1];
+					strcpy_s(groups[i], strlen(buffer) + 1, buffer);
+				}
+
+				int size_spec;
+				cout << "Сколько специальностей вы хотите добавить?\n";
+				cin >> size_spec;
+				cin.ignore();
+
+				char** specs = new char* [size_spec];
+				for (int i = 0; i < size_spec; i++) {
+					char buffer[256];
+					cout << "Введите название специальности " << i + 1 << ": ";
+					cin.getline(buffer, 256);
+					specs[i] = new char[strlen(buffer) + 1];
+					strcpy_s(specs[i], strlen(buffer) + 1, buffer);
+				}
+
+				keeper.Add(new Teacher(nam, (const char**)groups, (const char**)specs, size_group, size_spec));
+
+				for (int i = 0; i < size_group; i++) delete[] groups[i];
+				delete[] groups;
+				for (int i = 0; i < size_spec; i++) delete[] specs[i];
+				delete[] specs;
+				break;
+			}
+
+			case 3:
+				cin.ignore();
+				cout << "Введите имя: \n";
+				cin.getline(nam, 64);
+				cout << "Введите номер телефона: \n";
+				cin.getline(number, 64);
+				cout << "Введите должность: \n";
+				cin.getline(specialty, 64);
+				cout << "Введите область ответственности: \n";
+				cin.getline(zone, 64);
+
+				keeper.Add(new Administration(nam, number, specialty, zone));
+				break;
+			default:
+				cout << "Ошибка: неверный выбор!\n";
+				break;
+			}
+			break;
+
+		case 2:
+			cout << "1. Удалить студента:\n";
+			cout << "2. Удалить преподавателя:\n";
+			cout << "3. Удалить сотрудника:\n";
+			cin >> choice2;
+			cin.ignore();
+			cout << "Введите имя:\n";
+			cin.getline(nam, 64);
+			keeper.Remove(choice2, nam);
+			break;
+
+		case 3:
+			keeper.ShowAll();
+			break;
+
+		case 4:
+			keeper.SaveToFile("data.txt");
+			cout << "Данные сохранены в файл data.txt\n";
+			break;
+
+
+		case 6:
+			try {
+				cout << "1. Изменить студента\n";
+				cout << "2. Изменить преподавателя\n";
+				cout << "3. Изменить сотрудника\n";
+				cin >> choice2;
+				cin.ignore();
+				cout << "Введите имя для изменения:\n";
+				cin.getline(nam, 64);
+				keeper.Edit(choice2, nam);
+
+			}
+			catch (const KeeperException& e) {
+				cout << e.what() << endl;
+			}
+			break;
+
+		case 5:
+			keeper.LoadFromFile("data.txt");
+			cout << "Данные загружены из файла data.txt\n";
+			break;
+
+		case 0:
+			cout << "Выход из программы...\n";
+			break;
+
+		default:
+			cout << "Ошибка: неверный выбор!\n";
+			break;
+		}
+
+	} while (choice != 0);
+
+	delete[] nam;
+	delete[] group;
+	delete[] spec;
+	delete[] number;
+	delete[] specialty;
+	delete[] zone;
 
 	return 0;
 }
